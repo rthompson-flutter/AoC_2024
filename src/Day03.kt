@@ -2,16 +2,14 @@ fun main() {
     val pattern = Regex("""mul\((\d+),(\d+)\)""")
 
     fun part1(input: List<String>): Int {
-        val combinedInput = input.joinToString("\n")
-        return pattern.findAll(combinedInput).map { match ->
+        return pattern.findAll(input.joinToString("\n")).map { match ->
             match.groupValues[1].toInt() * match.groupValues[2].toInt()
         }.sum()
     }
 
     fun part2(input: List<String>): Int {
-        val combinedInput = input.joinToString("\n")
         val ignorePattern = Regex("""don't\(\).*?do\(\)""", RegexOption.DOT_MATCHES_ALL)
-        val cleanInput = combinedInput.replace(ignorePattern, "")
+        val cleanInput = input.joinToString("\n").replace(ignorePattern, "")
         return pattern.findAll(cleanInput).map { match ->
             match.groupValues[1].toInt() * match.groupValues[2].toInt()
         }.sum()
